@@ -1,16 +1,7 @@
-# test_messenger
+### ПІБ: Корж Марина Русланівна
+### Email: marynkorzh@gmail.com
+### Кількість витрачених годин: 27 години
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Функціонал застосунку:
+1.Унікальний ID, текстове поле:
+<p><img src="[шлях_до_зображення.jpg](https://github.com/Marikorzh/test_messenger/assets/55840494/1386fc24-668d-4633-a4e4-3627819c6380)https://github.com/Marikorzh/test_messenger/assets/55840494/1386fc24-668d-4633-a4e4-3627819c6380" alt="Опис зображення" width="300" height="200"></p>
