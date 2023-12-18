@@ -1,6 +1,7 @@
 ### ПІБ: Корж Марина Русланівна
 ### Email: marynkorzh@gmail.com
 ### Кількість витрачених годин: 27 години
+### Посилання на APK Android: [готовий .apk](https://drive.google.com/drive/folders/1jA-VLYEozsu2z_gpwNsc8uG4LOUuu0Zd?usp=sharing)
 
 ## Функціонал застосунку:
 1. Унікальний ID, текстове поле:
