@@ -52,49 +52,71 @@ class _ChatPageState extends State<ChatPage>  {
         ? Alignment.centerRight
         : Alignment.centerLeft;
 
+    return StreamBuilder(
+        stream: FirebaseDatabase.instance.ref().child("users/${widget.receiverId}/name").onValue,
+        builder: (context, snapshot){
+          if (snapshot.hasData) {
+            var userInfo = snapshot.data!.snapshot.value;
 
-    return Container(
-      alignment: alignment,
-      child: Padding(
-        padding: const EdgeInsets.all(3.0),
-        child: Column(
-          crossAxisAlignment: (data["senderId"] == widget.senderId)
-              ? CrossAxisAlignment.end
-              : CrossAxisAlignment.start,
-          mainAxisAlignment: (data["senderId"] == widget.senderId)
-              ? MainAxisAlignment.end
-              : MainAxisAlignment.start,
-          children: [
-            //Text(name),
-            ChatBubble(
-              name: widget.name,
-              msg: data["message"].toString(),
-              color: (data["senderId"] == widget.senderId)
-                  ? Colors.blueAccent
-                  : Colors.black12,
-              timestamp: data["timestamp"],
-            ),
+            return Container(
+              alignment: alignment,
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Column(
+                  crossAxisAlignment: (data["senderId"] == widget.senderId)
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  mainAxisAlignment: (data["senderId"] == widget.senderId)
+                      ? MainAxisAlignment.end
+                      : MainAxisAlignment.start,
+                  children: [
+                    //Text(name),
+                    ChatBubble(
+                      name: userInfo.toString(),
+                      msg: data["message"].toString(),
+                      color: (data["senderId"] == widget.senderId)
+                          ? Colors.blueAccent
+                          : Colors.black12,
+                      timestamp: data["timestamp"],
+                    ),
 
-          ],
-        ),
-      ),
-    );
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return Text("loading...");
+          }
+        });
+
+
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return
+       Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           leadingWidth: 70,
-          leading: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey,
-              backgroundImage: NetworkImage(widget.avatarLink),
-            ),
-          ),
+          leading: StreamBuilder(
+            stream: FirebaseDatabase.instance.ref().child("users/${widget.receiverId}/avatarLink").onValue,
+            builder: (context, snapshot){
+              if (snapshot.hasData) {
+                var userInfo = snapshot.data!.snapshot.value;
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    backgroundImage: NetworkImage(userInfo.toString()),
+                  ),
+                );
+              } else {
+                return CircleAvatar( backgroundColor: Colors.grey);
+              }
+            }),
           backgroundColor: Colors.white,
           elevation: 1,
           centerTitle: true,
@@ -148,8 +170,7 @@ class _ChatPageState extends State<ChatPage>  {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
 
