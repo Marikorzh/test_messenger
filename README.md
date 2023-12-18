@@ -1,16 +1,19 @@
-# test_messenger
+### ПІБ: Корж Марина Русланівна
+### Email: marynkorzh@gmail.com
+### Кількість витрачених годин: 27 години
 
-A new Flutter project.
+## Функціонал застосунку:
+1. Унікальний ID, текстове поле:
 
-## Getting Started
+<p><img src="https://github.com/Marikorzh/test_messenger/assets/55840494/d1c6f18d-4efa-4946-affa-5edd72152c23" alt="Опис зображення" width="300" height="600"></p>
 
-This project is a starting point for a Flutter application.
+2. Зберігання ID.
+3. Зміна імені користувача.
+4. При введенні ID іншого користувача у текстове поле, переход на іншу сторінку:
 
-A few resources to get you started if this is your first Flutter project:
+<p><img src="https://github.com/Marikorzh/test_messenger/assets/55840494/2bc90947-7565-4f60-8751-32fc46eccb0f" alt="Опис зображення" width="300" height="600"></p>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+5. При відкритті підвантажується вся історія спілкування.
+6. Час відправки.
+7. Зверху відображатиметься час останнього входу користувача.
+8. Зміна аватарки.
