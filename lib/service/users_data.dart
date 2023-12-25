@@ -63,7 +63,7 @@ class UserData {
 
   void updateUserData(String userId, String newName) async{
 
-    // Only update the name, leave the age and address!
+    // Only update the name, leave the age and address
     await databaseReference.ref.child(userId).update({
       "name": newName,
     });
