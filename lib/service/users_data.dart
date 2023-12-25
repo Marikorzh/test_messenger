@@ -22,7 +22,7 @@ class UserData {
 
   Future<List<String>> readDataUser() async {
     List<String> uidList = [];
-    Completer<List<String>> completer = Completer();
+    //Completer<List<String>> completer = Completer();
 
     // Перевірка, чи не додано вже слухача, щоб уникнути подвійних викликів
     if (databaseReference.onValue != null) {
@@ -35,12 +35,12 @@ class UserData {
           print('name: ${values['name']}');
         });
 
-        completer.complete(
-            uidList); // Повідомляємо про завершення асинхронної операції
+      //   completer.complete(
+      //       uidList); // Повідомляємо про завершення асинхронної операції
       });
     }
 
-    return completer.future;
+    return uidList;
   }
 
   Future<AuthData> re3(String userId) async {
@@ -87,7 +87,7 @@ class UserData {
 
   void createRecord(String uidUser) {
     DatabaseReference databaseReference =
-        FirebaseDatabase.instance.reference().child('users');
+        FirebaseDatabase.instance.ref().child('users');
 
     databaseReference.child(uidUser.substring(0,4)).set({
       'uid': uidUser,
