@@ -21,27 +21,36 @@ class UserData {
   }
 
   Future<List<String>> readDataUser() async {
+    Completer<List<String>> completer = Completer<List<String>>();
     List<String> uidList = [];
-    //Completer<List<String>> completer = Completer();
 
     // Перевірка, чи не додано вже слухача, щоб уникнути подвійних викликів
     if (databaseReference.onValue != null) {
-      databaseReference.onValue.listen((event) {
-        DataSnapshot dataSnapshot = event.snapshot;
-        Map<dynamic, dynamic>? values = dataSnapshot.value as Map?;
-        values?.forEach((key, values) {
-          print('uid: ${values['uid']}');
-          uidList.add(values['uid']);
-          print('name: ${values['name']}');
-        });
+      // Перевірка, чи Completer ще не завершений
+      if (!completer.isCompleted) {
+        databaseReference.onValue.listen((event) {
+          DataSnapshot dataSnapshot = event.snapshot;
+          Map<dynamic, dynamic>? values = dataSnapshot.value as Map?;
 
-      //   completer.complete(
-      //       uidList); // Повідомляємо про завершення асинхронної операції
-      });
+          values?.forEach((key, values) {
+            //print('uid: ${values['uid']}');
+            uidList.add(values['uid']);
+            //print('name: ${values['name']}');
+          });
+
+          // Перевірка, чи Completer ще не завершений перед його завершенням
+          if (!completer.isCompleted) {
+            completer.complete(uidList);
+          }
+        });
+      }
     }
 
-    return uidList;
+    // Повертаємо Future, який буде завершений, коли дані будуть готові
+    return completer.future;
   }
+
+
 
   Future<AuthData> re3(String userId) async {
     AuthData authData = AuthData(uid: userId, name: "An", id: "0000", avatarLink: "");
