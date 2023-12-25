@@ -31,24 +31,24 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
 
             return CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-
+          }
+          else if (snapshot.hasError) {
             return Text('Помилка: ${snapshot.error}');
-          } else {
-
+          }
+          else if (snapshot.hasData) {
             List<String> uidList = snapshot.data ?? [];
-            if(!uidList.contains(user!.uid)){
+            if(!uidList.contains(user!.uid) && uidList.isNotEmpty){
               userData.createRecord(user!.uid);
               print("New");
             }
             else {
               print("Old");
             }
-
             userData.setUserOnlineStatus(user!.uid.substring(0,4), true);
 
             return HomePage(userId: user!.uid.toString().substring(0,4));
           }
+          else{return Container();}
         },
       ),
     );
