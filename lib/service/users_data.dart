@@ -33,9 +33,9 @@ class UserData {
           Map<dynamic, dynamic>? values = dataSnapshot.value as Map?;
 
           values?.forEach((key, values) {
-            //print('uid: ${values['uid']}');
+            print('id: ${values['id']}');
             uidList.add(values['uid']);
-            //print('name: ${values['name']}');
+            print('name: ${values['name']}');
           });
 
           // Перевірка, чи Completer ще не завершений перед його завершенням

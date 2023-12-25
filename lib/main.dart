@@ -15,18 +15,30 @@ void main() async{
   runApp(MyApp());
 }
 
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   var user = FirebaseAuth.instance.currentUser;
   final UserData userData = UserData();
+  late Future<List<String>> userDataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    userDataFuture = userData.readDataUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FutureBuilder<List<String>>(
-        future: userData.readDataUser(),
+        future: userDataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
 
@@ -48,12 +60,13 @@ class MyApp extends StatelessWidget {
 
             return HomePage(userId: user!.uid.toString().substring(0,4));
           }
-          else{return Container();}
+          else{return Container(child: Text("initiation Error"),);}
         },
       ),
     );
   }
 }
+
 
 class AuthData{
   String uid;
