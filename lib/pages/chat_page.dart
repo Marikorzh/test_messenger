@@ -27,9 +27,9 @@ class _ChatPageState extends State<ChatPage>  {
     List<String> ids = [widget.senderId, widget.receiverId];
     ids.sort();
     chatRoomId = ids.join("_");
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      addScroll();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   addScroll();
+    // });
   }
 
 
@@ -135,7 +135,7 @@ class _ChatPageState extends State<ChatPage>  {
         ),
         body: Container(
           height: double.infinity,
-          width: 500,
+          width: double.infinity,
           child: Column(
             children: [
               SizedBox(height: 20,),
