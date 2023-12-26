@@ -6,66 +6,57 @@ import 'package:test_messenger/service/users_data.dart';
 
 import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await FirebaseAuth.instance.signInAnonymously();
+  UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+  User? user = userCredential.user;
 
-  runApp(MyApp());
+  runApp(MyApp(user: user));
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  final User? user;
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  var user = FirebaseAuth.instance.currentUser;
+  MyApp({Key? key, required this.user}) : super(key: key);
   final UserData userData = UserData();
-  late Future<List<String>> userDataFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    userDataFuture = userData.readDataUser();
-  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FutureBuilder<List<String>>(
-        future: userDataFuture,
+        future: userData.readDataUser(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-
             return CircularProgressIndicator();
-          }
-          else if (snapshot.hasError) {
+          } else if (snapshot.hasError) {
             return Text('Помилка: ${snapshot.error}');
-          }
-          else if (snapshot.hasData) {
+          } else if (snapshot.hasData) {
             List<String> uidList = snapshot.data ?? [];
-            if(!uidList.contains(user!.uid) && uidList.isNotEmpty){
+            if (!uidList.contains(user!.uid) ) {
               userData.createRecord(user!.uid);
               print("New");
-            }
-            else {
+            } else {
               print("Old");
             }
-            userData.setUserOnlineStatus(user!.uid.substring(0,4), true);
+            //userData.createRecord(user!.uid);
+            userData.setUserOnlineStatus(user!.uid.substring(0, 4), true);
 
-            return HomePage(userId: user!.uid.toString().substring(0,4));
+            return HomePage(userId: user!.uid.toString().substring(0, 4));
+          } else {
+            return Container(child: Text("Initialization Error"),);
           }
-          else{return Container(child: Text("initiation Error"),);}
         },
       ),
     );
   }
 }
+
+
+
+
 
 
 class AuthData{

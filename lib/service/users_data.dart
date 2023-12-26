@@ -33,7 +33,7 @@ class UserData {
           Map<dynamic, dynamic>? values = dataSnapshot.value as Map?;
 
           values?.forEach((key, values) {
-            print('id: ${values['id']}');
+            print('uid: ${values['uid']}');
             uidList.add(values['uid']);
             print('name: ${values['name']}');
           });
@@ -49,6 +49,8 @@ class UserData {
     // Повертаємо Future, який буде завершений, коли дані будуть готові
     return completer.future;
   }
+
+
 
 
 
